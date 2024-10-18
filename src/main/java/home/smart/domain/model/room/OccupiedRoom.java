@@ -1,7 +1,6 @@
 package home.smart.domain.model.room;
 
 import home.smart.domain.model.value.RoomCategory;
-import home.smart.domain.model.value.Price;
 
-public record OccupiedRoom(Price price, RoomCategory roomCategory) {
+public record OccupiedRoom(RoomCategory roomCategory) {
 }
