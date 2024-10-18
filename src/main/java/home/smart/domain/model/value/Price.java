@@ -1,8 +1,17 @@
 package home.smart.domain.model.value;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Accessors(fluent = true)
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Price implements Comparable<Price> {
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
     private static final int SCALE = 2;
@@ -19,6 +28,10 @@ public class Price implements Comparable<Price> {
 
     public static Price of(BigDecimal value) {
         return new Price(value);
+    }
+
+    public static Price of(long value) {
+        return new Price(BigDecimal.valueOf(value));
     }
 
     @Override
