@@ -8,26 +8,27 @@ import home.smart.domain.model.value.RoomCategory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
-public class RoomOccupancyOptimizer {
+public class RoomBookingAllocator {
     private final Price premiumRoomPriceThreshold;
 
-    public RoomOccupancyOptimizer(Price premiumRoomPriceThreshold) {
+    public RoomBookingAllocator(Price premiumRoomPriceThreshold) {
         this.premiumRoomPriceThreshold = premiumRoomPriceThreshold;
     }
 
-    public List<OccupiedRoom> optimize(
+    public List<OccupiedRoom> allocate(
             Collection<UnoccupiedRoom> unoccupiedRooms,
             Collection<Bid> guestsBids
     ) {
         var roomsByCategory = new RoomsByCategory(unoccupiedRooms);
-        var guestsBidsAscending = guestsBids.stream()
-                .sorted()
+        var guestsBidsDescending = guestsBids.stream()
+                .sorted(Comparator.reverseOrder())
                 .toList();
 
         var occupiedRooms = new ArrayList<OccupiedRoom>(guestsBids.size());
-        for (var bid : guestsBidsAscending) {
+        for (var bid : guestsBidsDescending) {
             if (bid.value().compareTo(premiumRoomPriceThreshold) < 0) {
                 roomsByCategory.tryNext(RoomCategory.ECONOMY)
                         .or(() -> roomsByCategory.tryNext(RoomCategory.PREMIUM))
