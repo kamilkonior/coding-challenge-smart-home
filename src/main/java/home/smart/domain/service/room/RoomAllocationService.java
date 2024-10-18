@@ -2,7 +2,7 @@ package home.smart.domain.service.room;
 
 import home.smart.domain.request.OccupancyRequest;
 import home.smart.domain.response.OccupancyResponse;
-import home.smart.domain.service.room.optimizer.RoomBookingAllocator;
+import home.smart.domain.service.room.allocation.RoomBookingAllocator;
 import org.springframework.stereotype.Service;
 
 @Service

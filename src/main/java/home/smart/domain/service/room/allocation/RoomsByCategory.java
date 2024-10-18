@@ -1,4 +1,4 @@
-package home.smart.domain.service.room.optimizer;
+package home.smart.domain.service.room.allocation;
 
 import home.smart.domain.model.value.RoomCategory;
 import home.smart.domain.model.room.UnoccupiedRoom;

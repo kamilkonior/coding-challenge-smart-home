@@ -1,4 +1,4 @@
-package home.smart.domain.service.room.optimizer;
+package home.smart.domain.service.room.allocation;
 
 import home.smart.domain.model.room.OccupiedRoom;
 import home.smart.domain.model.room.UnoccupiedRoom;
@@ -13,7 +13,7 @@ import static home.smart.domain.model.value.RoomCategory.ECONOMY;
 import static home.smart.domain.model.value.RoomCategory.PREMIUM;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RoomOccupancyOptimizerTest {
+class RoomBookingAllocatorTest {
 
     @Test
     public void shouldAllocateGuestIntoEconomyRoom() {
