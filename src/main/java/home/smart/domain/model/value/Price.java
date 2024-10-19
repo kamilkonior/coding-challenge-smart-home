@@ -14,8 +14,7 @@ import java.math.RoundingMode;
 @EqualsAndHashCode
 public class Price implements Comparable<Price> {
     public static final Price ZERO = Price.of(BigDecimal.ZERO);
-    private static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
-    private static final int SCALE = 2;
+
     private final BigDecimal value;
 
     private Price(BigDecimal value) {
@@ -23,7 +22,7 @@ public class Price implements Comparable<Price> {
             throw new IllegalArgumentException("Price must be greater than zero");
         }
 
-        this.value = value.setScale(SCALE, ROUNDING_MODE);
+        this.value = value.setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public static Price of(BigDecimal value) {
