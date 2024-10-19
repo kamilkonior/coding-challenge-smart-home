@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public record OccupancyHttpRequest(
     int premiumRooms,
     int economyRooms,
-    List<String> guestsBids
+    List<Double> potentialGuests
 ) {
     public OccupancyRequest intoDomainRequest() {
         var economyRooms = Stream.generate(() -> new UnoccupiedRoom(RoomCategory.ECONOMY))
@@ -28,7 +28,7 @@ public record OccupancyHttpRequest(
         var unoccupiedRooms = new ArrayList<>(economyRooms);
         unoccupiedRooms.addAll(premiumRooms);
 
-        var guestsBids = guestsBids().stream()
+        var guestsBids = potentialGuests().stream()
             .map(bid -> Bid.of(Price.of(new BigDecimal(bid))))
             .toList();
 
