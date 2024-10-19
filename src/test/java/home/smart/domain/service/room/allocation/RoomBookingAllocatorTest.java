@@ -22,24 +22,12 @@ class RoomBookingAllocatorTest {
 
         //when
         var rooms = sysUnderTest.allocate(
-                List.of(room(ECONOMY)),
-                List.of(bid(50))
+            List.of(room(ECONOMY)),
+            List.of(bid(50))
         );
 
         //then
-        assertThat(rooms).containsExactly(room(ECONOMY, 50));
-    }
-
-    private static Bid bid(long value) {
-        return Bid.of(Price.of(value));
-    }
-
-    private static UnoccupiedRoom room(RoomCategory category) {
-        return new UnoccupiedRoom(category);
-    }
-
-    private static OccupiedRoom room(RoomCategory category, long value) {
-        return new OccupiedRoom(Price.of(value), category);
+        assertThat(rooms).containsOnly(room(ECONOMY, 50));
     }
 
     @Test
@@ -49,12 +37,12 @@ class RoomBookingAllocatorTest {
 
         //when
         var rooms = sysUnderTest.allocate(
-                List.of(room(PREMIUM)),
-                List.of(bid(50))
+            List.of(room(PREMIUM)),
+            List.of(bid(50))
         );
 
         //then
-        assertThat(rooms).containsExactly(room(PREMIUM, 50));
+        assertThat(rooms).containsOnly(room(PREMIUM, 50));
     }
 
     @Test
@@ -64,12 +52,12 @@ class RoomBookingAllocatorTest {
 
         //when
         var rooms = sysUnderTest.allocate(
-                List.of(room(PREMIUM), room(ECONOMY), room(PREMIUM)),
-                List.of(bid(50))
+            List.of(room(PREMIUM), room(ECONOMY), room(PREMIUM)),
+            List.of(bid(50))
         );
 
         //then
-        assertThat(rooms).containsExactly(room(ECONOMY, 50));
+        assertThat(rooms).containsOnly(room(ECONOMY, 50));
     }
 
     @Test
@@ -79,12 +67,12 @@ class RoomBookingAllocatorTest {
 
         //when
         var rooms = sysUnderTest.allocate(
-                List.of(room(PREMIUM)),
-                List.of(bid(100))
+            List.of(room(PREMIUM)),
+            List.of(bid(100))
         );
 
         //then
-        assertThat(rooms).containsExactly(room(PREMIUM, 100));
+        assertThat(rooms).containsOnly(room(PREMIUM, 100));
     }
 
     @Test
@@ -94,12 +82,12 @@ class RoomBookingAllocatorTest {
 
         //when
         var rooms = sysUnderTest.allocate(
-                List.of(room(ECONOMY), room(PREMIUM), room(ECONOMY)),
-                List.of(bid(100))
+            List.of(room(ECONOMY), room(PREMIUM), room(ECONOMY)),
+            List.of(bid(100))
         );
 
         //then
-        assertThat(rooms).containsExactly(room(PREMIUM, 100));
+        assertThat(rooms).containsOnly(room(PREMIUM, 100));
     }
 
     @Test
@@ -109,8 +97,8 @@ class RoomBookingAllocatorTest {
 
         //when
         var rooms = sysUnderTest.allocate(
-                List.of(room(ECONOMY)),
-                List.of(bid(100))
+            List.of(room(ECONOMY)),
+            List.of(bid(100))
         );
 
         //then
@@ -124,11 +112,23 @@ class RoomBookingAllocatorTest {
 
         //when
         var rooms = sysUnderTest.allocate(
-                List.of(room(ECONOMY), room(PREMIUM)),
-                List.of(bid(50), bid(75), bid(100))
+            List.of(room(ECONOMY), room(PREMIUM)),
+            List.of(bid(50), bid(75), bid(100))
         );
 
         //then
-        assertThat(rooms).containsExactly(room(ECONOMY, 50), room(PREMIUM, 100));
+        assertThat(rooms).containsOnly(room(ECONOMY, 75), room(PREMIUM, 100));
+    }
+
+    private static Bid bid(long value) {
+        return Bid.of(Price.of(value));
+    }
+
+    private static UnoccupiedRoom room(RoomCategory category) {
+        return new UnoccupiedRoom(category);
+    }
+
+    private static OccupiedRoom room(RoomCategory category, long value) {
+        return new OccupiedRoom(Price.of(value), category);
     }
 }
