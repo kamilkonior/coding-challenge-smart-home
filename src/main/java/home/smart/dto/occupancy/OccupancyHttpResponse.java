@@ -32,9 +32,9 @@ public record OccupancyHttpResponse(
 
         return new OccupancyHttpResponse(
             premiumRoomsOccupancyStatistics.count(),
-            premiumRoomsOccupancyStatistics.revenue().value().toString(),
+            premiumRoomsOccupancyStatistics.revenue().value().stripTrailingZeros().toString(),
             economyRoomsOccupancyStatistics.count(),
-            economyRoomsOccupancyStatistics.revenue().value().toString()
+            economyRoomsOccupancyStatistics.revenue().value().stripTrailingZeros().toString()
         );
     }
 
