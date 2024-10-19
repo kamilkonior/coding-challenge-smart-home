@@ -13,11 +13,9 @@ import java.math.RoundingMode;
 @ToString
 @EqualsAndHashCode
 public class Price implements Comparable<Price> {
-    public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
-    private static final int SCALE = 2;
-
     public static final Price ZERO = Price.of(BigDecimal.ZERO);
-
+    private static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
+    private static final int SCALE = 2;
     private final BigDecimal value;
 
     private Price(BigDecimal value) {

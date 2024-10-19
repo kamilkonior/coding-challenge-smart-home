@@ -1,7 +1,7 @@
 package home.smart.domain.service.room.allocation;
 
-import home.smart.domain.model.value.RoomCategory;
 import home.smart.domain.model.room.UnoccupiedRoom;
+import home.smart.domain.model.value.RoomCategory;
 
 import java.util.*;
 
@@ -13,10 +13,10 @@ class RoomsByCategory {
 
     public RoomsByCategory(Collection<UnoccupiedRoom> unoccupiedRooms) {
         this.roomsByCategory = unoccupiedRooms.stream()
-                .collect(groupingBy(
-                        UnoccupiedRoom::category,
-                        collectingAndThen(toList(), List::iterator))
-                );
+            .collect(groupingBy(
+                UnoccupiedRoom::category,
+                collectingAndThen(toList(), List::iterator))
+            );
     }
 
     public Optional<UnoccupiedRoom> tryNext(RoomCategory category) {

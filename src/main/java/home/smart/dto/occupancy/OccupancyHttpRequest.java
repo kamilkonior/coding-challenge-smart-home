@@ -12,25 +12,25 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public record OccupancyHttpRequest(
-        int premiumRooms,
-        int economyRooms,
-        List<String> guestsBids
+    int premiumRooms,
+    int economyRooms,
+    List<String> guestsBids
 ) {
     public OccupancyRequest intoDomainRequest() {
         var economyRooms = Stream.generate(() -> new UnoccupiedRoom(RoomCategory.ECONOMY))
-                .limit(economyRooms())
-                .toList();
+            .limit(economyRooms())
+            .toList();
 
         var premiumRooms = Stream.generate(() -> new UnoccupiedRoom(RoomCategory.PREMIUM))
-                .limit(premiumRooms())
-                .toList();
+            .limit(premiumRooms())
+            .toList();
 
         var unoccupiedRooms = new ArrayList<>(economyRooms);
         unoccupiedRooms.addAll(premiumRooms);
 
         var guestsBids = guestsBids().stream()
-                .map(bid -> Bid.of(Price.of(new BigDecimal(bid))))
-                .toList();
+            .map(bid -> Bid.of(Price.of(new BigDecimal(bid))))
+            .toList();
 
         return new OccupancyRequest(unoccupiedRooms, guestsBids);
     }

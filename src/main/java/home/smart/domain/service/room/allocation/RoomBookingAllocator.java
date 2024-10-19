@@ -19,23 +19,23 @@ public class RoomBookingAllocator {
     }
 
     public List<OccupiedRoom> allocate(
-            Collection<UnoccupiedRoom> unoccupiedRooms,
-            Collection<Bid> guestsBids
+        Collection<UnoccupiedRoom> unoccupiedRooms,
+        Collection<Bid> guestsBids
     ) {
         var roomsByCategory = new RoomsByCategory(unoccupiedRooms);
         var guestsBidsDescending = guestsBids.stream()
-                .sorted(Comparator.reverseOrder())
-                .toList();
+            .sorted(Comparator.reverseOrder())
+            .toList();
 
         var occupiedRooms = new ArrayList<OccupiedRoom>(guestsBids.size());
         for (var bid : guestsBidsDescending) {
             if (bid.value().compareTo(premiumRoomPriceThreshold) < 0) {
                 roomsByCategory.tryNext(RoomCategory.ECONOMY)
-                        .or(() -> roomsByCategory.tryNext(RoomCategory.PREMIUM))
-                        .ifPresent(room -> occupiedRooms.add(new OccupiedRoom(bid.value(), room.category())));
+                    .or(() -> roomsByCategory.tryNext(RoomCategory.PREMIUM))
+                    .ifPresent(room -> occupiedRooms.add(new OccupiedRoom(bid.value(), room.category())));
             } else {
                 roomsByCategory.tryNext(RoomCategory.PREMIUM)
-                        .ifPresent(room -> occupiedRooms.add(new OccupiedRoom(bid.value(), room.category())));
+                    .ifPresent(room -> occupiedRooms.add(new OccupiedRoom(bid.value(), room.category())));
             }
         }
 
