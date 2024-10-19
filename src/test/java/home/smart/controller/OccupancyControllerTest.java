@@ -56,8 +56,8 @@ class OccupancyControllerTest {
     private static Stream<Arguments> occupancyEstimationArguments() {
         return Stream.of(
             Arguments.of(7, 5, new OccupancyHttpResponse(6, "1054", 4, "189.99")),
-            Arguments.of(7, 5, new OccupancyHttpResponse(6, "1054", 4, "189.99")),
-            Arguments.of(7, 5, new OccupancyHttpResponse(6, "1054", 4, "189.99"))
+            Arguments.of(3, 3, new OccupancyHttpResponse(3, "738", 3, "167.99")),
+            Arguments.of(2, 7, new OccupancyHttpResponse(2, "583", 4, "189.99"))
         );
     }
 }
