@@ -20,6 +20,6 @@ public class OccupancyController {
     public ResponseEntity<OccupancyHttpResponse> allocateRooms(@RequestBody OccupancyHttpRequest occupancyHttpRequest) {
         var occupancyRequest = occupancyHttpRequest.intoDomainRequest();
         var occupancyResponse = roomAllocationService.allocateRoomsForGuests(occupancyRequest);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(OccupancyHttpResponse.fromDomainResponse(occupancyResponse));
     }
 }

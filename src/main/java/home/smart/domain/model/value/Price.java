@@ -16,6 +16,8 @@ public class Price implements Comparable<Price> {
     public static final RoundingMode ROUNDING_MODE = RoundingMode.HALF_EVEN;
     private static final int SCALE = 2;
 
+    public static final Price ZERO = Price.of(BigDecimal.ZERO);
+
     private final BigDecimal value;
 
     private Price(BigDecimal value) {
@@ -32,6 +34,10 @@ public class Price implements Comparable<Price> {
 
     public static Price of(long value) {
         return new Price(BigDecimal.valueOf(value));
+    }
+
+    public Price add(Price price) {
+        return new Price(value.add(price.value));
     }
 
     @Override
