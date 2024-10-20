@@ -29,7 +29,7 @@ public class RoomBookingAllocator {
 
         var occupiedRooms = new ArrayList<OccupiedRoom>(guestsBids.size());
         for (var bid : guestsBidsDescending) {
-            if (bid.value().compareTo(premiumRoomPriceThreshold) < 0) {
+            if (isEconomyClassBid(bid)) {
                 roomsByCategory.tryNext(RoomCategory.ECONOMY)
                     .or(() -> roomsByCategory.tryNext(RoomCategory.PREMIUM))
                     .ifPresent(room -> occupiedRooms.add(new OccupiedRoom(bid.value(), room.category())));
@@ -40,5 +40,9 @@ public class RoomBookingAllocator {
         }
 
         return occupiedRooms;
+    }
+
+    private boolean isEconomyClassBid(Bid bid) {
+        return bid.value().compareTo(premiumRoomPriceThreshold) < 0;
     }
 }
